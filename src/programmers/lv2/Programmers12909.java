@@ -4,6 +4,7 @@ import java.util.Stack;
 
 /**
  * 올바른 괄호
+ * split("") 쓰니까 효율성에서 시간초과 나네..😓
  */
 public class Programmers12909 {
 
