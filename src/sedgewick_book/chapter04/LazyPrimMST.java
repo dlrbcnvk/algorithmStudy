@@ -18,12 +18,12 @@ public class LazyPrimMST {
         while (!pq.isEmpty()) {
             Edge e = pq.poll(); // pq로부터 최저 가중치
             int v = e.either(), w = e.other(v); // 간선 얻기
-            if (marked[v] && marked[w]) // 부적합 간선이면 무시
+            if (marked[v] && marked[w]) // 부적합 간선이면(두 점 모두 이미 찍은 점들이면) 무시
                 continue;
 
             mst.add(e); // 트리에 간선 추가
             System.out.println(e);
-            if (!marked[v]) // 트리에 정점 추가
+            if (!marked[v]) // 트리에 정점 추가. 점 찍기
                 visit(graph, v);
             if (!marked[w]) // v 또는 w 둘 다
                 visit(graph, w);
@@ -31,7 +31,7 @@ public class LazyPrimMST {
     }
 
     private void visit(EdgeWeightedGraph graph, int v) {
-        // v를 표시한 후, v에 연결되었으면서 표시되지 않은 정점으로의 모든 간선을 pq에 추가
+        // v에 점 찍고, v에 연결되었으면서 점 찍히지 않은 정점으로의 모든 간선을 pq에 추가
         marked[v] = true;
         for (Edge e : graph.adj(v)) {
             if (!marked[e.other(v)])

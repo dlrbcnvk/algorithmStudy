@@ -43,15 +43,14 @@ public class EdgeWeightedGraph {
     public static void main(String[] args) {
         EdgeWeightedGraph edgeWeightedGraph = new EdgeWeightedGraph(8);
         edgeWeightedGraph.addEdge(new Edge(4, 5, 0.35));
+        edgeWeightedGraph.addEdge(new Edge(5, 4, 0.35));
         edgeWeightedGraph.addEdge(new Edge(4, 7, 0.37));
         edgeWeightedGraph.addEdge(new Edge(5, 7, 0.28));
-        edgeWeightedGraph.addEdge(new Edge(0, 7, 0.16));
-        edgeWeightedGraph.addEdge(new Edge(1, 5, 0.32));
+        edgeWeightedGraph.addEdge(new Edge(7, 5, 0.28));
+        edgeWeightedGraph.addEdge(new Edge(5, 1, 0.32));
         edgeWeightedGraph.addEdge(new Edge(0, 4, 0.38));
-        edgeWeightedGraph.addEdge(new Edge(2, 3, 0.17));
-        edgeWeightedGraph.addEdge(new Edge(1, 7, 0.19));
         edgeWeightedGraph.addEdge(new Edge(0, 2, 0.26));
-        edgeWeightedGraph.addEdge(new Edge(1, 2, 0.36));
+        edgeWeightedGraph.addEdge(new Edge(7, 3, 0.39));
         edgeWeightedGraph.addEdge(new Edge(1, 3, 0.29));
         edgeWeightedGraph.addEdge(new Edge(2, 7, 0.34));
         edgeWeightedGraph.addEdge(new Edge(6, 2, 0.40));
