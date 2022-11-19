@@ -4,6 +4,10 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
+/**
+ * 너비 우선 탐색
+ * queue 이용
+ */
 public class BreathFirstPaths {
 
     private boolean[] marked;
@@ -26,8 +30,8 @@ public class BreathFirstPaths {
             int v = queue.poll();
             for (int w : graph.adj(v)) {
                 if (!marked[w]) {
-                    edgeTo[w] = v;
-                    marked[w] = true;
+                    edgeTo[w] = v; // v -> w
+                    marked[w] = true; // 다른 조건 없으므로 먼저 찍는 자가 임자. 일종의 선착순
                     queue.add(w);
                 }
             }

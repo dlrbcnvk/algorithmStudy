@@ -3,6 +3,9 @@ package sedgewick_book.chapter04;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 방향 그래프
+ */
 public class Digraph {
     private final int V; // 정점 개수
     private int E; // 간선 개수
@@ -76,5 +79,4 @@ public class Digraph {
         System.out.println("degree(1) = " + graph.degree(2));
         System.out.println("maxDegree = " + graph.maxDegree());
     }
-
 }

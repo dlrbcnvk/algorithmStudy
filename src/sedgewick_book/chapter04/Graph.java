@@ -3,6 +3,9 @@ package sedgewick_book.chapter04;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 무방향 그래프
+ */
 public class Graph {
     private final int V; // 정점 개수
     private int E; // 간선 개수
@@ -31,15 +34,15 @@ public class Graph {
     }
 
     public String toString() {
-        String s = V + " vertices, " + E + " edges\n";
+        StringBuilder s = new StringBuilder().append(V).append(" vertices, ").append(E).append(" edges\n");
         for (int v = 0; v < V; v++) {
-            s += v + ": ";
+            s.append(v).append(": ");
             for (int w : this.adj(v)) {
-                s += w + " ";
+                s.append(w).append(" ");
             }
-            s += "\n";
+            s.append("\n");
         }
-        return s;
+        return s.toString();
     }
 
     // 주어진 정점의 차수 구하기

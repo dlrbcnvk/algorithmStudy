@@ -1,5 +1,11 @@
 package sedgewick_book.chapter04;
 
+import java.util.ArrayList;
+
+/**
+ * 방향 그래프에서의 도달성
+ * CC 연결 컴포넌트 찾기랑 동일함
+ */
 public class DirectedDFS {
     private boolean[] marked;
 

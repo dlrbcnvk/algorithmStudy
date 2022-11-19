@@ -1,6 +1,9 @@
 package sedgewick_book.chapter04;
 
-// 가중 간선 데이터 타입
+/**
+ * 가중 간선 데이터 타입
+ * 무방향 그래프
+ */
 public class Edge implements Comparable<Edge> {
 
     private final int v; // 정점 하나
