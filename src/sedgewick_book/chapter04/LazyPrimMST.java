@@ -4,6 +4,11 @@ import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * 프림 MST 알고리즘
+ * 최소 신장 트리
+ * 임의의 정점에서 시작. 인접한 간선들을 우선순위 큐에 넣고 가장 작은 간선 고르기를 반복
+ */
 public class LazyPrimMST {
     private boolean[] marked; // MST 정점들
     private Queue<Edge> mst; // MST 간선들

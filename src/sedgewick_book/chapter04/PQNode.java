@@ -2,6 +2,9 @@ package sedgewick_book.chapter04;
 
 import java.util.Objects;
 
+/**
+ * key-value node
+ */
 public class PQNode implements Comparable<PQNode> {
     private int key;
     private int value;

@@ -3,6 +3,9 @@ package sedgewick_book.chapter04;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * 가중 간선 그래프 데이터 타입
+ */
 public class EdgeWeightedGraph {
 
     private final int V; // 정점의 개수

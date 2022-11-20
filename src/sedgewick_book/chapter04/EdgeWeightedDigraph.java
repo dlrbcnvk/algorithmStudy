@@ -3,6 +3,9 @@ package sedgewick_book.chapter04;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 가중 간선 방향 그래프 타입
+ */
 public class EdgeWeightedDigraph {
     private final int V; // 정점의 개수
     private int E; // 간선의 개수

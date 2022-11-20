@@ -5,7 +5,10 @@ import sedgewick_book.chapter04.EdgeWeightedDigraph;
 
 import java.util.Stack;
 
-
+/**
+ * 벨만-포드 단일출발점 최단경로 알고리즘
+ * 음수 가중치 있는 경우에도 사용 가능
+ */
 public class BellmanFord {
     private DirectedEdge[] edgeTo;
     private double[] distTo;

@@ -33,6 +33,7 @@ public class Edge implements Comparable<Edge> {
             throw new RuntimeException("Inconsistent edge");
     }
 
+    // weight를 기준으로 Edge 간 대소비교
     @Override
     public int compareTo(Edge that) {
         if (this.weight < that.getWeight())

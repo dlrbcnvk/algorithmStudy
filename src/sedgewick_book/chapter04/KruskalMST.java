@@ -1,12 +1,19 @@
 package sedgewick_book.chapter04;
 
-import sedgewick_book.chapter01.UF;
 import sedgewick_book.chapter01.WeightedQuickUnionUF;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
+/**
+ * 크루스칼(Kruskal) 알고리즘
+ * 최소 신장 트리
+ * 유니온-파인드 자료구조
+ * 간선들을 가중치 순으로(작은 것에서 큰 것 순으로) 처리
+ * 이미 확정된 mst의 간선들과 순환을 만들지 않는다면 간선을 mst에 추가
+ * v-1개 간선이 추가될 때 까지
+ */
 public class KruskalMST {
     private Queue<Edge> mst;
 

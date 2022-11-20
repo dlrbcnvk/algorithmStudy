@@ -1,5 +1,8 @@
 package sedgewick_book.chapter04;
 
+/**
+ * 가중 방향 간선 그래프 타입
+ */
 public class DirectedEdge {
     private final int v; // 간선의 꼬리 정점
     private final int w; // 간선의 머리 정점
