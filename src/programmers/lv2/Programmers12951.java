@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class Programmers12951 {
 
     public String solution(String s) {
-        String answer = "";
+        StringBuilder answer = new StringBuilder();
         s = s.trim();
         String[] strArr = s.split("\\s+");
 
@@ -21,27 +21,33 @@ public class Programmers12951 {
             strArr[i] = strArr[i].toLowerCase();
             String str = strArr[i];
             if (Character.isDigit(str.charAt(0))) {
-                answer += str + " ";
+                answer.append(str);
+                if (i != strArr.length - 1) {
+                    answer.append(" ");
+                }
                 continue;
             }
             char[] charArr = str.toCharArray();
             String first = String.valueOf(charArr[0]);
             charArr[0] = first.toUpperCase().toCharArray()[0];
 
-            String reducedString = "";
+            StringBuilder reducedString = new StringBuilder();
             for (char c : charArr) {
-                reducedString += c;
+                reducedString.append(c);
             }
-            answer += reducedString + " ";
+
+            answer.append(reducedString);
+            if (i != strArr.length - 1) {
+                answer.append(" ");
+            }
         }
 
-        answer = answer.substring(0, answer.length() - 1);
-        return answer;
+        return answer.toString();
     }
 
     public static void main(String[] args) {
         Programmers12951 programmers12951 = new Programmers12951();
-        String result = programmers12951.solution("   fo  34r  the    last   week    ");
+        String result = programmers12951.solution("   f aaaaa aaa o  34r  The    7aAst   weEK  4mm   ");
         System.out.println(result);
     }
 }
