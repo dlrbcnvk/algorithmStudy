@@ -54,7 +54,7 @@ public class BinarySearch {
         int[] ints = {98, 84, 77, 68, 57, 54, 48, 33, 29, 23, 18, 16, 14, 14, 12, 12, 12, 12, 12, 11, 10};
         Arrays.sort(ints);
         System.out.println(Arrays.toString(ints));
-        int result = findFirst(30, ints);
+        int result = findLast(98, ints);
         System.out.println(result);
     }
 }
