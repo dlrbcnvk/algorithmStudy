@@ -10,7 +10,7 @@ public class BinarySearch {
         while (lo <= hi) {
             int mid = (hi + lo) / 2;
             if (key < a[mid]) {
-                hi = mid + 1;
+                hi = mid - 1;
             } else if (key > a[mid]) {
                 lo = mid + 1;
             } else {
@@ -54,7 +54,7 @@ public class BinarySearch {
         int[] ints = {98, 84, 77, 68, 57, 54, 48, 33, 29, 23, 18, 16, 14, 14, 12, 12, 12, 12, 12, 11, 10};
         Arrays.sort(ints);
         System.out.println(Arrays.toString(ints));
-        int result = findLast(98, ints);
+        int result = findFirst(13, ints);
         System.out.println(result);
     }
 }
