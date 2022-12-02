@@ -1,51 +1,66 @@
 package programmers.lv2;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * 짝지어 제거하기
  * 미해결
  */
 public class Programmers12973 {
 
+    public String isReplaced(String s) {
+
+        s = s.replaceAll("aa", "")
+                .replaceAll("bb", "")
+                .replaceAll("cc", "")
+                .replaceAll("dd", "")
+                .replaceAll("ee", "")
+                .replaceAll("ff", "")
+                .replaceAll("gg", "")
+                .replaceAll("hh", "")
+                .replaceAll("ii", "")
+                .replaceAll("jj", "")
+                .replaceAll("kk", "")
+                .replaceAll("ll", "")
+                .replaceAll("mm", "")
+                .replaceAll("nn", "")
+                .replaceAll("oo", "")
+                .replaceAll("pp", "")
+                .replaceAll("qq", "")
+                .replaceAll("rr", "")
+                .replaceAll("ss", "")
+                .replaceAll("tt", "")
+                .replaceAll("uu", "")
+                .replaceAll("vv", "")
+                .replaceAll("ww", "")
+                .replaceAll("xx", "")
+                .replaceAll("yy", "")
+                .replaceAll("zz", "");
+        return s;
+    }
+
     public int solution(String s) {
 
-        String[] arr = s.split("");
-        List<String> collect = Arrays.stream(arr).collect(Collectors.toList());
-
+        String str;
         while (true) {
-            int i = 0;
-            boolean found = false;
-
-
-
-            for (i = 0; i < collect.size() - 1; i++) {
-                String s1 = collect.get(i);
-                String s2 = collect.get(i + 1);
-                if (s1.equals(s2)) {
-                    found = true;
-                    collect.remove(i + 1);
-                    collect.remove(i);
-                    break;
-                }
-            }
-            if (!found) {
+            str = isReplaced(s);
+            if (s.equals(str) || str.equals("")) {
                 break;
             }
+            s = str;
         }
-
-        if (collect.isEmpty()) {
+        if (str.equals("")) {
             return 1;
+        } else {
+            return 0;
         }
-
-        return 0;
     }
 
     public static void main(String[] args) {
         Programmers12973 programmers12973 = new Programmers12973();
-        int solution = programmers12973.solution("cdcd");
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < 100000; i++) {
+            s.append("baabaaabbabb");
+        }
+        int solution = programmers12973.solution(s.toString());
         System.out.println(solution);
     }
 }
