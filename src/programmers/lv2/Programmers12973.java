@@ -1,53 +1,30 @@
 package programmers.lv2;
 
+import java.util.Stack;
+
 /**
  * 짝지어 제거하기
- * 미해결
+ * 스택 사용으로 O(n)에 해결
  */
 public class Programmers12973 {
 
-    public String isReplaced(String s) {
-
-        s = s.replaceAll("aa", "")
-                .replaceAll("bb", "")
-                .replaceAll("cc", "")
-                .replaceAll("dd", "")
-                .replaceAll("ee", "")
-                .replaceAll("ff", "")
-                .replaceAll("gg", "")
-                .replaceAll("hh", "")
-                .replaceAll("ii", "")
-                .replaceAll("jj", "")
-                .replaceAll("kk", "")
-                .replaceAll("ll", "")
-                .replaceAll("mm", "")
-                .replaceAll("nn", "")
-                .replaceAll("oo", "")
-                .replaceAll("pp", "")
-                .replaceAll("qq", "")
-                .replaceAll("rr", "")
-                .replaceAll("ss", "")
-                .replaceAll("tt", "")
-                .replaceAll("uu", "")
-                .replaceAll("vv", "")
-                .replaceAll("ww", "")
-                .replaceAll("xx", "")
-                .replaceAll("yy", "")
-                .replaceAll("zz", "");
-        return s;
-    }
-
     public int solution(String s) {
 
-        String str;
-        while (true) {
-            str = isReplaced(s);
-            if (s.equals(str) || str.equals("")) {
-                break;
+        String[] split = s.split("");
+        Stack<String> stack = new Stack<>();
+        for (int i = 0; i < split.length; i++) {
+            if (stack.isEmpty()) {
+                stack.add(split[i]);
+            } else {
+                String peek = stack.peek();
+                if (split[i].equals(peek)) {
+                    stack.pop();
+                } else {
+                    stack.add(split[i]);
+                }
             }
-            s = str;
         }
-        if (str.equals("")) {
+        if (stack.isEmpty()) {
             return 1;
         } else {
             return 0;
@@ -58,7 +35,7 @@ public class Programmers12973 {
         Programmers12973 programmers12973 = new Programmers12973();
         StringBuilder s = new StringBuilder();
         for (int i = 0; i < 100000; i++) {
-            s.append("baabaaabbabb");
+            s.append("cdcd");
         }
         int solution = programmers12973.solution(s.toString());
         System.out.println(solution);
