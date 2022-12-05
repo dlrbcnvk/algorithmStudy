@@ -1,6 +1,8 @@
 package programmers.lv2;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  * [1차] 프렌즈4블록
@@ -10,14 +12,14 @@ public class Programmers17679 {
     char[][] charBoard;
     int m;
     int n;
+    int count = 0;
 
     public int solution(int m, int n, String[] board) {
-        int answer = 0;
 
         this.m = m;
         this.n = n;
         charBoard = new char[m][n];
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < m; i++) {
             char[] chars = board[i].toCharArray();
             charBoard[i] = chars;
         }
@@ -27,17 +29,47 @@ public class Programmers17679 {
             if (search.isEmpty()) {
                 break;
             }
+
             for (Integer[] point : search) {
                 Integer x = point[0];
                 Integer y = point[1];
-                charBoard[x][y] = '0';
-                charBoard[x][y+1] = '0';
-                charBoard[x+1][y] = '0';
-                charBoard[x+1][y+1] = '0';
+
+                checkAndCount(x, y);
+                checkAndCount(x, y + 1);
+                checkAndCount(x + 1, y);
+                checkAndCount(x + 1, y + 1);
             }
+
+            moveDown();
         }
 
-        return answer;
+        return count;
+    }
+
+    public void checkAndCount(int x, int y) {
+        if (charBoard[x][y] != '0') {
+            charBoard[x][y] = '0';
+            count++;
+        }
+    }
+
+    public void moveDown() {
+        for (int j = 0; j < n; j++) {
+            Queue<String> queue = new LinkedList<>();
+            for (int i = m - 1; i >= 0; i--) {
+                if (charBoard[i][j] != '0') {
+                    queue.add(String.valueOf(charBoard[i][j]));
+                }
+            }
+            for (int i = m - 1; i >= 0; i--) {
+                if (!queue.isEmpty()) {
+                    char block = queue.poll().charAt(0);
+                    charBoard[i][j] = block;
+                } else {
+                    charBoard[i][j] = '0';
+                }
+            }
+        }
     }
 
     public ArrayList<Integer[]> search2x2() {
