@@ -1,36 +1,56 @@
 package programmers.lv2;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 /**
- * 미해결
- * 어떻게 하는지 감이 잘 안 옴..ㅠ
- * n ~ 1 일일이 이분탐색 인덱스 찾으면서 판단해야하나...?
+ * n ~ 0 순차 탐색
+ * h값 변수, 인덱스 변수 관리
  */
 public class Programmers42747 {
 
     int[] citations;
 
-    public boolean condition(int n) {
-        return true;
+    public boolean condition(int h, int idx) {
+        if (h <= citations[idx] && citations.length - idx >= h) {
+            return true;
+        }
+        return false;
     }
 
     public int solution(int[] citations) {
         this.citations = citations;
         Arrays.sort(citations);
 
+        int idx = citations.length - 1;
+        int h = citations[idx];
+        while (true) {
+            if (condition(h, idx)) {
+                return h;
+            }
+            if (idx == 0) {
+                while (true) {
+                    if (condition(h, idx)) {
+                        return h;
+                    }
+                    h--;
+                }
+            }
 
-
-
-        int answer = 0;
-        return answer;
+            if (citations[idx - 1] == h - 1) {
+                idx--;
+            }
+            else if (citations[idx] == citations[idx - 1]) {
+                idx--;
+                continue;
+            }
+            h--;
+        }
     }
 
     public static void main(String[] args) {
         Programmers42747 programmers42747 = new Programmers42747();
         int solution = programmers42747.solution(
-                new int[]{2,3,3,3,4,5,5,5}
+                new int[]{4,4,4}
         );
 
         System.out.println(solution);
