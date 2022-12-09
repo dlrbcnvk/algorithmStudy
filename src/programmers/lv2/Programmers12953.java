@@ -32,15 +32,14 @@ public class Programmers12953 {
         while (copiedArr.length != 0) {
             int initialValue = copiedArr[0];
             List<Integer> divisors = getDivisorsInDescendingOrder(copiedArr[0]);
-            boolean found = false;
             int value = initialValue;
             for (Integer divisor : divisors) {
-                if (!found) {
-                    for (int i = 1; i < copiedArr.length; i++) {
-                        if (copiedArr[i] % divisor == 0) {
-                            found = true;
-                            value = divisor;
-                        }
+                for (int i = 1; i < copiedArr.length; i++) {
+                    if (copiedArr[i] % divisor == 0) {
+                        // 약수를 내림차순으로 돌다가 copiedArr(첫 원소 제외한)원소들 중 한 개라도 나누어 떨어진다면
+                        // 그때의 divisor로 'ㄴ'자 만들기
+                        value = divisor;
+                        break;
                     }
                 }
             }
@@ -53,6 +52,7 @@ public class Programmers12953 {
             if (initialValue == value) {
                 copiedArr = Arrays.copyOfRange(copiedArr, 1, copiedArr.length);
             }
+
             Arrays.sort(copiedArr);
         }
 
@@ -62,7 +62,7 @@ public class Programmers12953 {
     public static void main(String[] args) {
         Programmers12953 programmers12953 = new Programmers12953();
         int solution = programmers12953.solution(
-                new int[]{14,2,7}
+                new int[]{12,32,45,67,72}
         );
         System.out.println(solution);
     }
