@@ -17,31 +17,6 @@ public class Programmers64062 {
     int n;
     int k;
 
-    static class Stone implements Comparable<Stone> {
-        int idx;
-        int post;
-
-        public Stone(int idx, int post) {
-            this.idx = idx;
-            this.post = post;
-        }
-
-        @Override
-        public int compareTo(Stone stone) {
-            if (this.getDistance() > stone.getDistance()) {
-                return -1;
-            } else if (this.getDistance() < stone.getDistance()) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }
-
-        public int getDistance() {
-            return post - idx;
-        }
-    }
-
     public int solution(int[] stones, int k) {
 
         restMap = new HashMap<>();

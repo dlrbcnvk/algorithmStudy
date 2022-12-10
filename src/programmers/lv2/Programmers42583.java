@@ -8,7 +8,7 @@ import java.util.Queue;
  */
 public class Programmers42583 {
 
-    class Truck {
+    static class Truck {
         int entryTime;
         int weight;
 

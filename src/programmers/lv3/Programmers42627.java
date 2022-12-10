@@ -9,7 +9,7 @@ import java.util.PriorityQueue;
  */
 public class Programmers42627 {
 
-    class JobRequest implements Comparable<JobRequest> {
+    static class JobRequest implements Comparable<JobRequest> {
         int requested;
         int workingTime;
 
@@ -30,7 +30,7 @@ public class Programmers42627 {
         }
     }
 
-    class JobWorking implements Comparable<JobWorking> {
+    static class JobWorking implements Comparable<JobWorking> {
 
         int requested;
         int workingTime;

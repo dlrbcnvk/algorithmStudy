@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Programmers43164 {
 
-    public class DirectedEdge implements Comparable<DirectedEdge> {
+    public static class DirectedEdge implements Comparable<DirectedEdge> {
         private final String v;
         private final String w;
         private boolean used = false;

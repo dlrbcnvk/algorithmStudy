@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class Programmers138476 {
 
-    class Tangerine implements Comparable<Tangerine> {
+    static class Tangerine implements Comparable<Tangerine> {
         int size;
         int count;
 

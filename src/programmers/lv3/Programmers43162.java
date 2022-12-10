@@ -11,7 +11,7 @@ import java.util.Queue;
  */
 public class Programmers43162 {
 
-    class Graph {
+    static class Graph {
         private int V;              // 정점 개수
         private int E;              // 간선 개수
         List<Integer>[] adj;        // 인접 리스트

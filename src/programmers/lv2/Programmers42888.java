@@ -13,7 +13,7 @@ public class Programmers42888 {
         IN, OUT
     }
 
-    class Record {
+    static class Record {
         String id;
         Status status;
 

@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Programmers49189 {
 
-    public class Graph {
+    public static class Graph {
         private final int V;
         private int E;
         private List<Integer>[] adj;

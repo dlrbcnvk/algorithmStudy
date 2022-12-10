@@ -9,7 +9,7 @@ import java.util.Queue;
  */
 public class Programmers43163 {
 
-    class Node {
+    static class Node {
         String str;
         int value;
 

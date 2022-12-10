@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Programmers42884 {
 
-    class Node implements Comparable<Node> {
+    static class Node implements Comparable<Node> {
         int start;
         int end;
 

@@ -9,7 +9,7 @@ import java.util.Arrays;
 public class Programmers12938 {
     public int[] solution(int n, int s) {
 
-        if (n > s) {
+        if (n * (n + 1) / 2 > s) {
             return new int[]{-1};
         }
 
