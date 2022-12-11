@@ -3,65 +3,45 @@ package programmers.lv2;
 /**
  * 땅따먹기
  * 완전탐색 재귀 - 시간초과
- * 미해결
+ * dp로 해결
+ * 열 내려가면서 현재까지 해당 인덱스에서 얻을 수 있는 최대값을 기록하면서 내려감
  */
 public class Programmers12913 {
 
     int[][] land;
     int n;
-    int maxPoint = 0;
-
-    /**
-     *
-     * @param idx : current idx
-     * @param row : current row
-     * @param point : point until now
-     */
-    public void go(int idx, int row, int point) {
-        if (row == n - 1) {
-            if (point > maxPoint) {
-                maxPoint = point;
-                return;
-            }
-            return;
-        }
-
-        int firstIdx = 0;
-        int firstVal = 0;
-        int secondIdx = 0;
-        int secondVal = 0;
-        for (int i = 0; i < 4; i++) {
-            if (idx == i) {
-                continue;
-            }
-            if (land[row + 1][i] > firstVal) {
-                firstVal = land[row + 1][i];
-                firstIdx = i;
-            }
-        }
-        for (int i = 0; i < 4; i++) {
-            if (idx == i || idx == firstIdx) {
-                continue;
-            }
-            if (land[row + 1][i] > secondVal) {
-                secondVal = land[row + 1][i];
-                secondIdx = i;
-            }
-        }
-        go(firstIdx, row + 1, point + firstVal);
-        go(secondIdx, row + 1, point + secondVal);
-    }
+    int[][] board;
 
     int solution(int[][] land) {
 
         this.n = land.length;
 
         this.land = land;
+        this.board = new int[n][4];
         for (int i = 0; i < 4; i++) {
-            go(i, 0, land[0][i]);
+            board[0][i] = land[0][i];
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = 0; j < 4; j++) {
+                int value = -1;
+                for (int k = 0; k < 4; k++) {
+                    if (j != k) {
+                        if (board[i - 1][k] > value) {
+                            value = board[i - 1][k];
+                        }
+                    }
+                }
+                board[i][j] = land[i][j] + value;
+            }
         }
 
-        return maxPoint;
+        int answer = -1;
+        for (int i = 0; i < 4; i++) {
+            if (board[n - 1][i] > answer) {
+                answer = board[n-1][i];
+            }
+        }
+        return answer;
     }
 
     public static void main(String[] args) {
