@@ -6,33 +6,27 @@ package programmers.lv2;
  * 일단 보류 미해결
  */
 public class Programmers12971 {
+    int n;
+    int marked[];
 
     public int solution(int sticker[]) {
 
-        if (sticker.length % 2 == 0) {
-            int sum1 = 0;
-            for (int i = 0; i < sticker.length; i += 2) {
-                sum1 += sticker[i];
-            }
-            int sum2 = 0;
-            for (int i = 1; i < sticker.length; i += 2) {
-                sum2 += sticker[i];
-            }
-            return Math.max(sum1, sum2);
-        } else {
-            int sum1 = 0;
-            for (int i = 0; i < sticker.length - 2; i += 2) {
-                sum1 += sticker[i];
-            }
-            int sum2 = 0;
-            for (int i = 1; i < sticker.length; i += 2) {
-                sum2 += sticker[i];
-            }
-            int sum3 = 0;
-            for (int i = 2; i < sticker.length; i += 2) {
-                sum3 += sticker[i];
-            }
-            return Math.max(Math.max(sum1, sum2), sum3);
+        this.n = sticker.length;
+        marked = new int[n];
+
+        // i=0을 선택한 경우
+        marked[0] = sticker[0];
+
+
+        // i=1을 선택한 경우
+
+        // i=2, i=n-1을 선택한 경우
+        return 1;
+    }
+
+    public void reset() {
+        for (int i = 0; i < n; i++) {
+//            marked[i] = false;
         }
     }
 

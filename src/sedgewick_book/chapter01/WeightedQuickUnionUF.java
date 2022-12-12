@@ -16,8 +16,8 @@ public class WeightedQuickUnionUF {
         id = new int[N];
         sz = new int[N];
         for (int i = 0; i < N; i++) {
-            id[i] = i;
-            sz[i] = 1;
+            id[i] = i;          // 처음엔 모두 자기 자신이 루트
+            sz[i] = 1;          // 모두 각자 사이즈 1짜리 독립된 컴포넌트
         }
     }
 

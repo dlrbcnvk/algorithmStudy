@@ -63,6 +63,8 @@ public class Digraph {
         Digraph R = new Digraph(V);
         for (int v = 0; v < V; v++) {
             for (int w : adj(v)) {
+                // v -> w 하나씩 찾아서
+                // w -> v로 셋팅
                 R.addEdge(w, v);
             }
         }

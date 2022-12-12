@@ -29,7 +29,7 @@ public class Graph {
         E++;
     }
 
-    public Iterable<Integer> adj(int v) {
+    public List<Integer> adj(int v) {
         return adj[v];
     }
 

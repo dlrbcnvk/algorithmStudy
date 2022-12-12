@@ -24,8 +24,8 @@ public class DirectedCycle {
     }
 
     private void dfs(Digraph G, int v) {
-        onStack[v] = true;
-        marked[v] = true;
+        onStack[v] = true;      // 호출 스택에 있다는 사실을 남기기
+        marked[v] = true;       // 다녀갔다는 사실을 남기기
         for (int w : G.adj(v)) {
             if (this.hasCycle()) {
                 return; // onStack에 true를 남긴 채 return

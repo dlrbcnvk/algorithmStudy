@@ -5,7 +5,6 @@ import java.util.Queue;
 
 /**
  * 연결 컴포넌트 찾기 (깊이 우선 탐색 활용)
- * union-find와 비교하면 어떤 차이가 있을까..? 더 공부할 것
  */
 public class CC {
     private boolean[] marked;

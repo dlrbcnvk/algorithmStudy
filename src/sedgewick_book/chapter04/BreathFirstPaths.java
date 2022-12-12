@@ -39,6 +39,7 @@ public class BreathFirstPaths {
     }
 
     public boolean hasPathTo(int v) {
+        // s -> v 까지의 경로가 있는지
         return marked[v];
     }
 

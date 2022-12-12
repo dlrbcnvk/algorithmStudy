@@ -32,6 +32,7 @@ public class DijkstraSP {
     }
 
     private void relax(EdgeWeightedDigraph graph, int v) {
+        // 탐색하면서 갱신하기
         for (DirectedEdge e : graph.adj(v)) {
             int w = e.to();
             if (distTo[w] > distTo[v] + e.getWeight()) {
