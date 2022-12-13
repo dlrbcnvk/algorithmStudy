@@ -1,82 +1,118 @@
 package programmers.lv3;
 
-import java.util.Arrays;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
- * 디스크 컨르롤러
- * 미해결 ㅠㅠ
+ * 디스크 컨트롤러
+ * 들어오는 것마다 짧은 걸 최우선순위로 두면 될까? ㅇㅇ
+ * 증명가능. (a,x), (b,y) 가 들어온 상태라고 가정. 진행중인 작업이 시각 c에 끝난 경우
+ * 둘 중 누구를 먼저 해야 enterTime ~ endTime 의 평균이 최소가 될까? 생각해보면 됨
  */
 public class Programmers42627 {
 
-    static class JobRequest implements Comparable<JobRequest> {
-        int requested;
-        int workingTime;
-
-        public JobRequest(int requested, int workingTime) {
-            this.requested = requested;
-            this.workingTime = workingTime;
-        }
+    public static class Job implements Comparable<Job>{
+        int enterTime;
+        int runningTime;
+        int endTime;
 
         @Override
-        public int compareTo(JobRequest jobRequest) {
-            if (this.requested < jobRequest.requested) {
+        public int compareTo(Job job) {
+            if (this.runningTime < job.runningTime) {
                 return -1;
-            } else if (this.requested > jobRequest.requested) {
+            } else if (this.runningTime > job.runningTime) {
                 return 1;
             } else {
                 return 0;
             }
         }
-    }
 
-    static class JobWorking implements Comparable<JobWorking> {
-
-        int requested;
-        int workingTime;
-
-        public JobWorking(int requested, int workingTime) {
-            this.requested = requested;
-            this.workingTime = workingTime;
-        }
-
-        @Override
-        public int compareTo(JobWorking jobWorking) {
-            if (this.workingTime < jobWorking.workingTime) {
-                return -1;
-            } else if (this.workingTime > jobWorking.workingTime) {
-                return 1;
-            } else {
-                return 0;
-            }
+        public Job(int enterTime, int runningTime) {
+            this.enterTime = enterTime;
+            this.runningTime = runningTime;
         }
     }
 
     public int solution(int[][] jobs) {
-        int answer = 0;
-        PriorityQueue<JobWorking> pq = new PriorityQueue<>();
-        JobRequest[] jobRequestArray = new JobRequest[jobs.length];
 
-        for (int i = 0; i < jobs.length; i++) {
-            int[] job = jobs[i];
-            jobRequestArray[i] = new JobRequest(job[0], job[1]);
+        HashMap<Integer, ArrayList<Integer>> readyMap = new HashMap<>();
+
+        for (int[] job : jobs) {
+            if (!readyMap.containsKey(job[0])) {
+                ArrayList<Integer> arr = new ArrayList<>();
+                arr.add(job[1]);
+                readyMap.put(job[0], arr);
+            } else {
+                readyMap.get(job[0]).add(job[1]);
+            }
         }
-        Arrays.sort(jobRequestArray);
 
+        Set<Integer> keySet = readyMap.keySet();
+        int[] keys = new int[keySet.size()];
         int idx = 0;
-        JobRequest jobRequest = jobRequestArray[0];
-        boolean[] marked = new boolean[jobRequestArray.length];
-        pq.add(new JobWorking(jobRequest.requested, jobRequest.workingTime));
-        marked[0] = true;
-        int time = jobRequest.requested;
-        while (idx < jobRequestArray.length) {
-
-            jobRequest = jobRequestArray[idx];
-
+        for (Integer key : keySet) {
+            keys[idx] = key;
             idx++;
         }
+        Arrays.sort(keys);
 
-        return 1;
+        int time = 0;
+        int endTime = 0;
+        int enterTime;
+        boolean isOngoing = false;
+        PriorityQueue<Job> pq = new PriorityQueue<>();
+        ArrayList<Job> jobArrayList = new ArrayList<>();
+        boolean started = false;
+        idx = 0;
+        while (true) {
+
+            if (idx == keys.length && pq.isEmpty() && !isOngoing && started) {
+                break;
+            }
+
+            // 들어올 시간이면 먼저 들여오기
+            if (idx < keys.length && time == keys[idx]) {
+                enterTime = keys[idx];
+                ArrayList<Integer> runningTimeList = readyMap.get(enterTime);
+                for (Integer runningTime : runningTimeList) {
+                    Job job = new Job(enterTime, runningTime);
+                    pq.add(job);
+                    jobArrayList.add(job);
+                }
+                idx++;
+                started = true;
+            }
+
+            // 디스크가 비어있으면 pq에서 하나 빼서 넣고
+            if (!isOngoing) {
+                if (!pq.isEmpty()) {
+                    Job poll = pq.poll();
+                    poll.endTime = time + poll.runningTime;
+                    isOngoing = true;
+                    endTime = poll.endTime;
+                }
+            } else {
+                // 진행중이었는데, 작업이 끝날 시간이 됨. 새로운 작업이 있으면 넣기
+                if (time == endTime) {
+                    isOngoing = false;
+                    if (!pq.isEmpty()) {
+                        Job poll = pq.poll();
+                        poll.endTime = time + poll.runningTime;
+                        isOngoing = true;
+                        endTime = poll.endTime;
+                    }
+                }
+            }
+
+            time++;
+        }
+
+        double sum = 0;
+        for (Job job : jobArrayList) {
+            sum += (job.endTime - job.enterTime);
+        }
+
+
+        return (int)(sum / jobArrayList.size());
     }
 
     public static void main(String[] args) {
