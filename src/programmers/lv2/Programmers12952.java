@@ -1,42 +1,55 @@
 package programmers.lv2;
 
+import java.util.Stack;
+
 /**
  * N-Queen
- * 스택을 이용해서 풀까..?
- * 일단 졸려서 자야지..
- * 미해결
+ * use stack
  */
 public class Programmers12952 {
+
+    static class Point {
+        int x;
+        int y;
+
+        public Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
 
     boolean[][] marked;
     int n;
     int count = 0;
+    Stack<Point> stack;
 
     public boolean condition(int x, int y) {
-        for (int i = 0; i < n; i++) {
-            if (y != i && marked[x][i]) {
+        for (Point point : stack) {
+            if (point.x == x || point.y == y) {
                 return false;
             }
-            if (x != i && marked[i][y]) {
+            if (point.x + point.y == x + y) {
+                return false;
+            }
+            if (point.x - point.y == x - y) {
                 return false;
             }
         }
-
         return true;
     }
 
     public void go(int row) {
 
-        if (row == n) {
+        if (stack.size() == n) {
             count++;
             return;
         }
 
         for (int i = 0; i < n; i++) {
             if (condition(row, i)) {
-                marked[row][i] = true;
+                stack.push(new Point(row, i));
                 go(row + 1);
-                marked[row][i] = false;
+                stack.pop();
             }
         }
     }
@@ -45,11 +58,12 @@ public class Programmers12952 {
 
         this.marked = new boolean[n][n];
         this.n = n;
+        stack = new Stack<>();
 
         for (int i = 0; i < n; i++) {
-            marked[0][i] = true;
+            stack.push(new Point(0, i));
             go(1);
-            marked[0][i] = false;
+            stack.pop();
         }
 
         return count;
