@@ -89,10 +89,19 @@ public class Programmers12905 {
 
     public static void main(String[] args) {
         Programmers12905 programmers12905 = new Programmers12905();
-        int solution = programmers12905.solution(new int[][]{
-                {1, 1},
-
-        });
+        int[][] temp = new int[1000][1000];
+        for (int i = 0; i < 1000; i++) {
+            for (int j = 0; j < 1000; j++) {
+                double random = Math.random();
+                if (random >= 0.5) {
+                    temp[i][j] = 1;
+                } else {
+                    temp[i][j] = 0;
+                }
+//                temp[i][j] = 1;
+            }
+        }
+        int solution = programmers12905.solution(temp);
         System.out.println(solution);
     }
 }
