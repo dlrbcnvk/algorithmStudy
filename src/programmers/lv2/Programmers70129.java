@@ -21,7 +21,7 @@ public class Programmers70129 {
             }
             s = s.replaceAll("0", "");
             int value = s.length();
-            s = Integer.toBinaryString(value);
+            s = Integer.toString(value, 2);
             count++;
         }
 
