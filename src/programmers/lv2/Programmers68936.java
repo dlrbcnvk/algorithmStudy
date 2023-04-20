@@ -28,6 +28,7 @@ public class Programmers68936 {
         if (allOne || allZero) {
             for (int i = x; i < x + size; i++) {
                 for (int j = y; j < y + size; j++) {
+                    // 첫 칸만 marked[i][j] = true 로 남겨두고 나머지 칸은 false 로 해서 숫자 개수세는데에 참고함
                     if (i == x && j == y) {
                         continue;
                     }

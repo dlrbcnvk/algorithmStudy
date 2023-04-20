@@ -39,18 +39,14 @@ public class Programmers42839 {
     }
 
     public int solution(String numbers) {
-        int answer = 0;
 
         chars = numbers.toCharArray();
         marked = new boolean[chars.length];
         integerSet = new HashSet<>();
 
-        String str = "";
-        for (int i = 0; i < marked.length; i++) {
-            marked[i] = true;
-            go(str + chars[i]);
-            marked[i] = false;
-        }
+        String str = "0";
+        go(str);
+
         return integerSet.size();
     }
 
