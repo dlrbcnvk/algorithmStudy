@@ -21,13 +21,15 @@ public class Programmers42746 {
         public int compareTo(Number num) {
             int integer1 = Integer.parseInt(this.numStr + num.numStr);
             int integer2 = Integer.parseInt(num.numStr + this.numStr);
-            if (integer1 > integer2) {
-                return -1;
-            } else if (integer1 < integer2) {
-                return 1;
-            } else {
-                return 0;
-            }
+
+            return integer2 - integer1;
+//            if (integer1 > integer2) {
+//                return -1;
+//            } else if (integer1 < integer2) {
+//                return 1;
+//            } else {
+//                return 0;
+//            }
         }
     }
 

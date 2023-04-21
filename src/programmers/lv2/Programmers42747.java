@@ -1,6 +1,7 @@
 package programmers.lv2;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 /**
  * n ~ 0 순차 탐색
@@ -22,7 +23,7 @@ public class Programmers42747 {
         Arrays.sort(citations);
 
         int idx = citations.length - 1;
-        int h = citations[idx];
+        int h = citations.length;
         while (true) {
             if (condition(h, idx)) {
                 return h;
