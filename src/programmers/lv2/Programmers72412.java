@@ -1,12 +1,11 @@
 package programmers.lv2;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * 순위 검색
  * 정확성 통과. 효율성 무엇이 문제일까
+ * 힌트: 캐시
  */
 public class Programmers72412 {
 
@@ -33,6 +32,8 @@ public class Programmers72412 {
 
     private List<Applicant> applicantList;
 
+    private Map<String, Applicant[]> cacheMap = new HashMap<>();
+
     public int[] solution(String[] info, String[] query) {
         applicantList = new ArrayList<>();
 
@@ -45,52 +46,52 @@ public class Programmers72412 {
 
         int[] answer = new int[query.length];
         for (int i = 0; i < query.length; i++) {
-            String queryEndExcluded = query[i].replaceAll(" and", "");
-            String[] split = queryEndExcluded.split(" ");
-            String lang = split[0];
-            String job = split[1];
-            String level = split[2];
-            String food = split[3];
-            Integer score = Integer.valueOf(split[4]);
-            int result = query(lang, job, level, food, score);
+            int result = query(query[i]);
             answer[i] = result;
         }
         return answer;
     }
 
-    private int query(String lang, String job, String level, String food, Integer score) {
+    private int query(String query) {
+        Applicant[] filteredApplicants;
+        int lastSpace = query.lastIndexOf(" ");
+        Integer score = Integer.valueOf(query.substring(lastSpace + 1));
+        String key = query.substring(0, lastSpace);
 
-        ArrayList<Applicant> filteredList = new ArrayList<>();
-        for (Applicant applicant : this.applicantList) {
-            if ((lang.equals("-") || applicant.lang.equals(lang)) &&
-                    (job.equals("-") || applicant.job.equals(job)) &&
-                    (level.equals("-") || applicant.level.equals(level)) &&
-                    (food.equals("-") || applicant.food.equals(food))) {
-                filteredList.add(applicant);
-            }
-        }
-        Applicant[] filteredArr = new Applicant[filteredList.size()];
-        for (int i = 0; i < filteredList.size(); i++) {
-            filteredArr[i] = filteredList.get(i);
-        }
+        if (cacheMap.containsKey(key)) {
+            // cache hit
+            filteredApplicants = cacheMap.get(key);
 
-//        Applicant[] filteredArr = applicantList.stream()
-//                .filter(applicant -> (lang.equals("-") || applicant.lang.equals(lang)) &&
-//                (job.equals("-") || applicant.job.equals(job)) &&
-//                (level.equals("-") || applicant.level.equals(level)) &&
-//                (food.equals("-") || applicant.food.equals(food)))
-//                .toArray(Applicant[]::new);
+        } else {
+            // not hit
+            String queryEndExcluded = query.replaceAll(" and", "");
+            String[] split = queryEndExcluded.split(" ");
+            String lang = split[0];
+            String job = split[1];
+            String level = split[2];
+            String food = split[3];
+            score = Integer.valueOf(split[4]);
+
+            filteredApplicants = applicantList.stream()
+                    .filter(applicant -> (lang.equals("-") || applicant.lang.equals(lang)) &&
+                            (job.equals("-") || applicant.job.equals(job)) &&
+                            (level.equals("-") || applicant.level.equals(level)) &&
+                            (food.equals("-") || applicant.food.equals(food)))
+                    .toArray(Applicant[]::new);
+
+            cacheMap.put(key, filteredApplicants);
+        }
 
         // binary search
         int start = 0; // inclusive
-        int end = filteredArr.length; // exclusive
+        int end = filteredApplicants.length; // exclusive
 
         while (end > start) {
             int mid = (start + end) / 2;
 
-            if (filteredArr[mid].score < score) {
+            if (filteredApplicants[mid].score < score) {
                 start = mid + 1;
-            } else if (filteredArr[mid].score >= score) {
+            } else if (filteredApplicants[mid].score >= score) {
                 if (end - start <= 2) {
                     end = mid;
                 } else {
@@ -99,7 +100,7 @@ public class Programmers72412 {
             }
         }
 
-        return filteredArr.length - start;
+        return filteredApplicants.length - start;
     }
 
     public static void main(String[] args) {
