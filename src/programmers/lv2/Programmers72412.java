@@ -83,22 +83,22 @@ public class Programmers72412 {
         }
 
         // binary search
+        // 범위 중에서 제일 작은 수 (인덱스) 구하기
         int start = 0; // inclusive
         int end = filteredApplicants.length; // exclusive
 
+        // end - exclusive 로 간주하고 end 가 범위 내의 수로 진입한 다음
+        // 마지막 2개 남았을 때에도 mid(==start) < score 라면 start 를 1 증가시켜 end 가 됨으로써 나머지 딱 하나 남음. 그때 include 시킴.
         while (end > start) {
             int mid = (start + end) / 2;
 
             if (filteredApplicants[mid].score < score) {
                 start = mid + 1;
-            } else if (filteredApplicants[mid].score >= score) {
-                if (end - start <= 2) {
-                    end = mid;
-                } else {
-                    end = mid + 1;
-                }
+            } else {
+                end = mid;
             }
         }
+
 
         return filteredApplicants.length - start;
     }
