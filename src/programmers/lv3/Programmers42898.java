@@ -1,5 +1,7 @@
 package programmers.lv3;
 
+import java.util.Arrays;
+
 /**
  * 등굣길
  */
@@ -8,11 +10,9 @@ public class Programmers42898 {
     public int solution(int m, int n, int[][] puddles) {
 
         int[][] board = new int[n][m];
-        // 기본 셋팅 - 우선 모두 1로 하고
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                board[i][j] = 1;
-            }
+        // 기본 셋팅 - 우선 모두 -1로 하고
+        for (int[] b : board) {
+            Arrays.fill(b, -1);
         }
         // 물에 잠긴 곳은 0으로
         for (int[] puddle : puddles) {
@@ -36,7 +36,7 @@ public class Programmers42898 {
                     }
                 }
 
-                // 그 이외라면 물웅덩이 0짜리 신경쓰지 않아도 되고 위쪽 + 왼쪽
+                // 물웅덩이 0짜리는 위에서 이미 걸렀고, 나머지 전부는 위쪽 + 왼쪽
                 if (i != 0) {
                     if (j == 0) {
                         board[i][j] = board[i - 1][j];

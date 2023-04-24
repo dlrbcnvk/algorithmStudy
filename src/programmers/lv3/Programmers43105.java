@@ -2,8 +2,6 @@ package programmers.lv3;
 
 /**
  * 정수 삼각형
- * board 초기화할 때 길이를 5,5로 고정해서 런타임 에러가 났었음
- * bottom, bottom으로 수정하니 통과 😳
  */
 public class Programmers43105 {
     public int solution(int[][] triangle) {
@@ -23,7 +21,7 @@ public class Programmers43105 {
                 } else if ((board[i - 1][j - 1] > board[i - 1][j])) {
                     board[i][j] = board[i - 1][j - 1] + triangle[i][j];
                 } else {
-                    board[i][j] = board[i-1][j] + triangle[i][j];
+                    board[i][j] = board[i - 1][j] + triangle[i][j];
                 }
             }
         }

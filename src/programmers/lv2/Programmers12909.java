@@ -10,7 +10,7 @@ public class Programmers12909 {
 
     boolean solution(String s) {
         boolean answer = true;
-        Stack<Character> stack = new Stack<Character>();
+        Stack<Character> stack = new Stack<>();
 
         for (Character str : s.toCharArray()) {
             if (str == '(') {
