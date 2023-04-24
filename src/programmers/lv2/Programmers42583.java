@@ -27,7 +27,7 @@ public class Programmers42583 {
 
         do {
             time++;
-            // 뺄 거 있으면 먼저 빼기
+            // 뺄 거 있으면 먼저 빼기 (1초에 한 개만 뺄 수 있음)
             if (!queue.isEmpty()) {
                 Truck peek = queue.peek();
                 if (time - peek.entryTime == bridge_length) {

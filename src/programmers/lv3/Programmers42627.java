@@ -34,6 +34,7 @@ public class Programmers42627 {
 
     public int solution(int[][] jobs) {
 
+        // (요청되는 시점, 작업 리스트)
         HashMap<Integer, ArrayList<Integer>> readyMap = new HashMap<>();
 
         for (int[] job : jobs) {
@@ -47,12 +48,8 @@ public class Programmers42627 {
         }
 
         Set<Integer> keySet = readyMap.keySet();
-        int[] keys = new int[keySet.size()];
-        int idx = 0;
-        for (Integer key : keySet) {
-            keys[idx] = key;
-            idx++;
-        }
+        int[] keys = keySet.stream()
+                .mapToInt(i -> i).toArray();
         Arrays.sort(keys);
 
         int time = 0;
@@ -62,7 +59,7 @@ public class Programmers42627 {
         PriorityQueue<Job> pq = new PriorityQueue<>();
         ArrayList<Job> jobArrayList = new ArrayList<>();
         boolean started = false;
-        idx = 0;
+        int idx = 0;
         while (true) {
 
             if (idx == keys.length && pq.isEmpty() && !isOngoing && started) {

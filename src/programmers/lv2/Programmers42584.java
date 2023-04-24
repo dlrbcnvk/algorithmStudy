@@ -41,16 +41,13 @@ public class Programmers42584 {
                 }
             }
 
-
             stack.push(record);
         }
-
 
         int[] answer = new int[records.length];
         for (int i = 0; i < records.length; i++) {
             answer[i] = records[i].downTime - records[i].time;
         }
-
 
         return answer;
     }

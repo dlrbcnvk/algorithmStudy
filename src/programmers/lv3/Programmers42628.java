@@ -33,9 +33,8 @@ public class Programmers42628 {
         if (maxPQ.isEmpty()) {
             return new int[]{0, 0};
         }
-        int[] answer = new int[]{maxPQ.poll(), minPQ.poll()};
 
-        return answer;
+        return new int[]{maxPQ.poll(), minPQ.poll()};
     }
 
     public static void main(String[] args) {
