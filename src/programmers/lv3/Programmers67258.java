@@ -4,6 +4,7 @@ import java.util.*;
 
 /**
  * 보석 쇼핑
+ * 두 포인터로 해결 가능
  */
 public class Programmers67258 {
 
@@ -17,7 +18,7 @@ public class Programmers67258 {
         }
 
         public int getRange() {
-            return end - start + 1;
+            return end - start;
         }
 
         @Override
@@ -63,7 +64,7 @@ public class Programmers67258 {
 
         while (startIdx <= gemLength - n) {
 
-            // 뒤쪽 늘리기
+            // n 종류가 될 때까지 뒤쪽 늘리기
             while (endIdx < gemLength && map.keySet().size() < n) {
                 String gem = gems[endIdx];
                 if (!map.containsKey(gem)) {
@@ -75,7 +76,7 @@ public class Programmers67258 {
                 endIdx++;
             }
 
-            // 앞쪽 줄이기
+            // n 종류가 유지되는 동안 앞쪽 줄이기
             while (map.keySet().size() == n) {
                 String startKey = gems[startIdx];
                 if (map.get(startKey) == 1) {
