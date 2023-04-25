@@ -9,9 +9,7 @@ public class Programmers42862 {
     public int solution(int n, int[] lost, int[] reserve) {
 
         boolean[] marked = new boolean[n + 1];
-        for (int i = 0; i <= n; i++) {
-            marked[i] = true;
-        }
+        Arrays.fill(marked, true);
         marked[0] = false;
         for (int i = 0; i < lost.length; i++) {
             // 잃어버렸다
@@ -28,12 +26,14 @@ public class Programmers42862 {
         for (int i = 0; i < reserve.length; i++) {
             int idx = reserve[i];
             boolean canBorrow = true;
+            // 자기 자신한테는 못 빌려줌. 재확인
             for (int j = 0; j < lost.length; j++) {
                 if (lost[j] == idx) {
                     canBorrow = false;
                 }
             }
 
+            // 빌려줄 수 있어야 옆사람에게 빌려줌
             if (idx > 1) {
                 if (!marked[idx - 1] && canBorrow) {
                     marked[idx - 1] = true;

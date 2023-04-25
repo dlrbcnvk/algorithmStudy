@@ -19,10 +19,10 @@ public class Programmers43165 {
             }
             return;
         }
-        dfs(idx + 1, sum + numbers[idx + 1]);
-        dfs(idx + 1, sum - numbers[idx + 1]);
+        int next = idx + 1;
+        dfs(next, sum + numbers[next]);
+        dfs(next, sum - numbers[next]);
     }
-
 
 
     public int solution(int[] numbers, int target) {
@@ -30,10 +30,7 @@ public class Programmers43165 {
         this.target = target;
         this.numbers = numbers;
 
-
-
         dfs(-1, 0);
-
 
         return count;
     }
