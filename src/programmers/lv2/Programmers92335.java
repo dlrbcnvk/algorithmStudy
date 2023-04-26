@@ -1,45 +1,44 @@
 package programmers.lv2;
 
-import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 /**
  * k진수에서 소수 개수 구하기
- * 미해결
+ * 2023.04.26 AC
  */
 public class Programmers92335 {
 
-    static class Range {
-        int start;
-        int end;
-
-        public Range(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
-    }
-
-    ArrayList<Integer> zeroIdxArray;
-    ArrayList<Range> rangeList;
-
     public int solution(int n, int k) {
-
-        String[] s = Integer.toString(n, k).split("");
-        zeroIdxArray = new ArrayList<>();
-        for (int i = 0; i < s.length; i++) {
-            if (s[i].equals("0")) {
-                zeroIdxArray.add(i);
+        String str = Integer.toString(n, k);
+        StringTokenizer st = new StringTokenizer(str, "0", false);
+        int answer = 0;
+        while (st.hasMoreTokens()) {
+            long parseLong = Long.parseLong(st.nextToken());
+            System.out.println(parseLong);
+            if (isPrime(parseLong)) {
+                answer++;
             }
         }
-        rangeList = new ArrayList<>();
 
-
-        int answer = -1;
         return answer;
+    }
+
+    // for 루프 변수 i 를 long 으로 바꿔야 통과되네...?
+    private boolean isPrime(long parseLong) {
+        if (parseLong == 1) {
+            return false;
+        }
+        for (int i = 2; (long) i * i <= parseLong; i++) {
+            if (parseLong % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
         Programmers92335 programmers92335 = new Programmers92335();
-        int solution = programmers92335.solution(437674, 3);
+        int solution = programmers92335.solution(3*3*3*3*3*3*3*3*3*3*3*3 - 2, 3);
         System.out.println(solution);
     }
 }
