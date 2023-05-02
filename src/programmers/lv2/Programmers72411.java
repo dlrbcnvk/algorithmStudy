@@ -7,6 +7,9 @@ package programmers.lv2;
 public class Programmers72411 {
 
     public String[] solution(String[] orders, int[] course) {
+
+
+
         String[] answer = {};
         return answer;
     }
@@ -17,6 +20,9 @@ public class Programmers72411 {
                 new String[]{"ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"},
                 new int[]{2, 3, 4}
         );
-        System.out.println(solution);
+
+        for (String s : solution) {
+            System.out.print(s + " ");
+        }
     }
 }
