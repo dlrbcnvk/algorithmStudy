@@ -2,72 +2,42 @@ package programmers.lv2;
 
 /**
  * 가장 큰 정사각형 찾기
- * 테스트케이스 1번 시간초과...ㅠ
- * 미해결
+ * 2023.05.03 AC
+ * 오른쪽 아래에서부터 왼쪽 위까지 올라오면서 dp, 기록하기
  */
 public class Programmers12905 {
 
+    // 상 하 좌 우
+    private static int[] dy = new int[]{-1, 1, 0, 0};
+    private static int[] dx = new int[]{0, 0, -1, 1};
+
+
     int[][] board;
     int n, m; // 가로 세로
-    int maxSize = 0;
 
-    // (x,y) ~ (a,b) 모두 0으로 만드는 메서드
-    public void makeAllZero(int x, int y, int a, int b) {
-        for (int i = x; i <= a; i++) {
-            for (int j = y; j <= b; j++) {
-                board[i][j] = 0;
-            }
-        }
-    }
+    // board[i][j] == 1일 경우 탐색
+    public void search(int y, int x) {
 
-    // board[i][j] == 1일 경우 호출, 탐색
-    public int search(int x, int y) {
+        // 아래끝, 오른쪽끝 -> 변동없음
+        if (y == n - 1 || x == m - 1) return;
 
-        if (maxSize != 0) {
-            if (x + maxSize - 1 >= n || y + maxSize - 1 >= m) {
-                return 0;
-            }
+        // 해당 좌표가 0 이면 리턴
+        if (board[y][x] == 0) return;
+        // 오른쪽 또는 아래가 0 이면 리턴
+        if (board[y + dy[3]][x + dx[3]] == 0 || board[y + dy[1]][x + dx[1]] == 0) return;
 
-        }
-
-        int size = 1;
-
-        boolean isSquare = true;
-        int movingX = x + size;
-        int movingY = y + size;
-        int eraseX = movingX;
-        int eraseY = movingY;
-        while (movingX < n && movingY < m) {
-            for (int i = 0; i < size; i++) {
-                if (board[x + i][movingY] != 1) {
-                    isSquare = false;
-                    eraseX = x + i;
-                    eraseY = movingY;
-                }
-                if (board[movingX][y + i] != 1) {
-                    isSquare = false;
-                    eraseX = movingX;
-                    eraseY = y + i;
-                }
-                if (board[movingX][movingY] != 1) {
-                    isSquare = false;
-                    eraseX = movingX;
-                    eraseY = movingY;
-                }
-
-            }
-
-            if (isSquare) {
-                size++;
-                movingX++;
-                movingY++;
-            } else {
-                makeAllZero(x, y, eraseX, eraseY);
-                break;
-            }
+        int rightSquare = board[y + dy[3]][x + dx[3]];
+        int downSquare = board[y + dy[1]][x + dx[1]];
+        int minSquare = Math.min(rightSquare, downSquare);
+        int minSize = (int) Math.sqrt(minSquare);
+        // 정사각형을 만들기 위한 오른쪽아래 맨 끝점이 0 이라면 가능한 정사각형을 찾아서 사이즈 줄이기
+        while (board[y + minSize][x + minSize] == 0) {
+            minSize--;
         }
 
-        return size;
+//        System.out.println("(" + y + "," + x + ")~(" + (y + minSize) + "," + (x + minSize) + ")");
+//        System.out.println("(" + y + "," + x + ")" + "=" + (minSize + 1) * (minSize + 1));
+        board[y][x] = (minSize + 1) * (minSize + 1);
     }
 
     public int solution(int [][]board) {
@@ -76,32 +46,32 @@ public class Programmers12905 {
         this.n = board.length;
         this.m = board[0].length;
 
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < m; j++) {
-                if (board[i][j] == 1) {
-                    int size = search(i, j);
-                    maxSize = Math.max(size, maxSize);
-                }
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = m - 1; j >= 0; j--) {
+                search(i, j);
             }
         }
-        return maxSize * maxSize;
+
+        int maxSquare = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                maxSquare = Math.max(board[i][j], maxSquare);
+            }
+        }
+        return maxSquare;
     }
 
     public static void main(String[] args) {
         Programmers12905 programmers12905 = new Programmers12905();
-        int[][] temp = new int[1000][1000];
-        for (int i = 0; i < 1000; i++) {
-            for (int j = 0; j < 1000; j++) {
-                double random = Math.random();
-                if (random >= 0.5) {
-                    temp[i][j] = 1;
-                } else {
-                    temp[i][j] = 0;
+
+        int solution = programmers12905.solution(
+                new int[][]{
+                        {0,1,1,1},
+                        {1,1,1,1},
+                        {1,1,1,1},
+                        {0,0,1,0}
                 }
-//                temp[i][j] = 1;
-            }
-        }
-        int solution = programmers12905.solution(temp);
+        );
         System.out.println(solution);
     }
 }
