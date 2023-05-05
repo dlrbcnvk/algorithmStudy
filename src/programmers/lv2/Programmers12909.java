@@ -11,7 +11,7 @@ public class Programmers12909 {
     boolean solution(String s) {
         boolean answer = true;
         Stack<Character> stack = new Stack<>();
-
+        System.out.println();
         for (Character str : s.toCharArray()) {
             if (str == '(') {
                 stack.push(str);
