@@ -7,28 +7,45 @@ package programmers.lv2;
  */
 public class Programmers12971 {
     int n;
-    int marked[];
+    boolean[] marked;
+    int maxSum = Integer.MIN_VALUE;
+
+    private enum Direction {
+        LEFT, RIGHT
+    }
 
     public int solution(int sticker[]) {
 
         this.n = sticker.length;
-        marked = new int[n];
+        marked = new boolean[n];
 
-        // i=0을 선택한 경우
-        marked[0] = sticker[0];
+        if (sticker.length == 1) {
+            return sticker[0];
+        } else if (sticker.length == 2) {
+            return Math.max(sticker[0], sticker[1]);
+        }
 
 
-        // i=1을 선택한 경우
 
-        // i=2, i=n-1을 선택한 경우
         return 1;
     }
 
-    public void reset() {
-        for (int i = 0; i < n; i++) {
-//            marked[i] = false;
+    private void go(int idx, int[] sticker, boolean[] marked, int sum) {
+        int leftTwo = getStepIdx(idx, 2, sticker.length, Direction.LEFT);
+        int rightTwo = getStepIdx(idx, 2, sticker.length, Direction.RIGHT);
+        // 종료 조건
+
+
+    }
+
+    private int getStepIdx(int idx, int step, int size, Direction direction) {
+        if (direction == Direction.LEFT) {
+            return (idx - step) < 0 ? idx - step + size : idx - step;
+        } else {
+            return (idx + step) > 0 ? idx + step - size : idx + step;
         }
     }
+
 
     public static void main(String[] args) {
         Programmers12971 programmers12971 = new Programmers12971();
