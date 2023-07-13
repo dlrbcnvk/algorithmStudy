@@ -8,7 +8,7 @@ public class Programmers140107 {
 
     public long solution(int k, int d) {
 
-        // k < d
+
         long answer = 0;
         for (int y = 0; y <= d; y += k) {
             answer += getPointsInY(y, k, d);
@@ -17,7 +17,7 @@ public class Programmers140107 {
         return answer;
     }
 
-    public static long getPointsInY(int y, int k, int d) {
+    private long getPointsInY(int y, int k, int d) {
 
         // int * int 를 할 때 최댓값 범위를 넘어가므로 곱셈하는 것마다 long 타입으로 바꿔줘야 함
         long maxX = (long) Math.sqrt((long)d * d - (long)y * y);

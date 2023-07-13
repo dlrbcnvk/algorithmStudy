@@ -13,6 +13,12 @@ public class Programmers159993 {
     private static final int[] dy = new int[]{-1, 1, 0, 0};
     private static final int[] dx = new int[]{0, 0, -1, 1};
 
+    private static final String LEVER = "L";
+    private static final String START = "S";
+    private static final String END = "E";
+    private static final String WALL = "X";
+
+
     private String[][] board;
     private boolean[][] marked;
     private int n, m;
@@ -42,16 +48,16 @@ public class Programmers159993 {
         for (int i = 0; i < n; i++) {
             board[i] = maps[i].split("");
             for (int j = 0; j < m; j++) {
-                if (board[i][j].equals("S")) {
+                if (board[i][j].equals(START)) {
                     start = new Point(i, j, 0);
-                } else if (board[i][j].equals("L")) {
+                } else if (board[i][j].equals(LEVER)) {
                     lever = new Point(i, j, 0);
                 }
             }
         }
 
         // start -> lever
-        int minSecToLever = getMinSec(start, "L");
+        int minSecToLever = getMinSec(start, LEVER);
 
         // lever 로 갈 길이 없으면
         if (minSecToLever == Integer.MAX_VALUE) {
@@ -59,7 +65,7 @@ public class Programmers159993 {
         }
 
         // lever -> end
-        int minSecToEnd = getMinSec(lever, "E");
+        int minSecToEnd = getMinSec(lever, END);
 
         // end 로 갈 길이 없으면
         if (minSecToEnd == Integer.MAX_VALUE) {
@@ -110,7 +116,7 @@ public class Programmers159993 {
     }
 
     private void checkConditionAndAddQueue(int toY, int toX, Queue<Point> queue, int curSec) {
-        if (!marked[toY][toX] && !board[toY][toX].equals("X")) {
+        if (!marked[toY][toX] && !board[toY][toX].equals(WALL)) {
             queue.add(new Point(toY, toX, curSec + 1));
             marked[toY][toX] = true;
         }

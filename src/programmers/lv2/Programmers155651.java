@@ -5,7 +5,8 @@ import java.util.PriorityQueue;
 
 /**
  * 호텔 대실
- * 미해결
+ * https://school.programmers.co.kr/learn/courses/30/lessons/155651#
+ * 우선순위 큐
  */
 public class Programmers155651 {
 
@@ -33,21 +34,13 @@ public class Programmers155651 {
     }
 
     public int solution(String[][] book_time) {
-        Book[] books = new Book[book_time.length];
-        for (int i = 0; i < books.length; i++) {
-            String[] enterTime = book_time[i][0].split(":");
-            String[] outTime = book_time[i][1].split(":");
-            int enterHour = Integer.parseInt(enterTime[0]);
-            int enterMinute = Integer.parseInt(enterTime[1]);
-            int outHour = Integer.parseInt(outTime[0]);
-            int outMinute = Integer.parseInt(outTime[1]);
-            books[i] = new Book(enterHour, enterMinute, outHour, outMinute);
-        }
-        Arrays.sort(books);
+
+        Book[] books = makeBookings(book_time);
 
         int currentHour = 0;
         int currentMinute = 0;
         int booksIdx = 0;
+
         PriorityQueue<Book> pq = new PriorityQueue<>((b1, b2) -> {
             if (b1.outHour != b2.outHour) {
                 return b1.outHour - b2.outHour;
@@ -56,7 +49,18 @@ public class Programmers155651 {
             }
         });
         int maxPQSize = 0;
+
         while (booksIdx < books.length) {
+
+            // 나갈 사람은 나가고
+            while (!pq.isEmpty()) {
+                Book peek = pq.peek();
+                if (peek.outHour == currentHour && peek.outMinute == currentMinute) {
+                    pq.poll();
+                } else {
+                    break;
+                }
+            }
 
             // 예약받을 손님이 있으면 받고
             while (booksIdx < books.length) {
@@ -69,18 +73,7 @@ public class Programmers155651 {
                 }
             }
 
-
-            // 나갈 사람은 나가고
-            while (!pq.isEmpty()) {
-                Book peek = pq.peek();
-                if (peek.outHour == currentHour && peek.outMinute == currentMinute) {
-                    pq.poll();
-                } else {
-                    break;
-                }
-            }
-
-            // 현재 동시 예약자수 확인
+            // 현재 방 개수 확인
             maxPQSize = Math.max(pq.size(), maxPQSize);
 
             // 시간이 지나간다
@@ -96,6 +89,31 @@ public class Programmers155651 {
         return maxPQSize;
     }
 
+    private Book[] makeBookings(String[][] book_time) {
+        Book[] books = new Book[book_time.length];
+        for (int i = 0; i < books.length; i++) {
+            String[] enterTime = book_time[i][0].split(":");
+            String[] outTime = book_time[i][1].split(":");
+            int enterHour = Integer.parseInt(enterTime[0]);
+            int enterMinute = Integer.parseInt(enterTime[1]);
+            int outHour = Integer.parseInt(outTime[0]);
+            int outMinute = Integer.parseInt(outTime[1]);
+
+            // 퇴실하고 청소해야 하므로 10분 추가
+            if (outMinute + 10 >= 60) {
+                outHour++;
+                outMinute = outMinute + 10 - 60;
+            } else {
+                outMinute += 10;
+            }
+            books[i] = new Book(enterHour, enterMinute, outHour, outMinute);
+        }
+
+        Arrays.sort(books);
+
+        return books;
+    }
+
     public static void main(String[] args) {
         Programmers155651 programmers155651 = new Programmers155651();
         int solution = programmers155651.solution(
@@ -104,7 +122,7 @@ public class Programmers155651 {
                         {"16:40", "18:20"},
                         {"14:20", "15:20"},
                         {"14:10", "19:20"},
-                        {"14:20", "15:20"}
+                        {"18:20", "21:20"}
                 }
         );
         System.out.println(solution);
