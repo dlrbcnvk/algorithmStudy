@@ -4,17 +4,21 @@ import java.util.*;
 
 /**
  * 순위 검색
- * 정확성 통과. 효율성 무엇이 문제일까
- * 힌트: 캐시
+ * 정확성 일부 런타임에러. 효율성 무엇이 문제일까
+ * 미해결...
  */
 public class Programmers72412 {
 
-    public class Applicant implements Comparable<Applicant> {
+    private static String DASH = "-";
+    private static String SPACE_AND = " and";
+    private static String EMPTY = "";
+    private static String SPACE = " ";
+    public static class Applicant implements Comparable<Applicant> {
         String lang;
         String job;
         String level;
         String food;
-        Integer score;
+        int score;
 
         public Applicant(String lang, String job, String level, String food, Integer score) {
             this.lang = lang;
@@ -30,19 +34,21 @@ public class Programmers72412 {
         }
     }
 
-    private List<Applicant> applicantList;
-
-    private Map<String, Applicant[]> cacheMap = new HashMap<>();
+    private Applicant[] applicantList;
 
     public int[] solution(String[] info, String[] query) {
-        applicantList = new ArrayList<>();
+        applicantList = new Applicant[info.length];
 
+        int idx = 0;
         for (String s : info) {
-            String[] split = s.split(" ");
+            String[] split = s.split(SPACE);
             Applicant applicant = new Applicant(split[0], split[1], split[2], split[3], Integer.valueOf(split[4]));
-            applicantList.add(applicant);
+            applicantList[idx] = applicant;
+            idx++;
         }
-        Collections.sort(applicantList);
+
+
+        Arrays.sort(applicantList);
 
         int[] answer = new int[query.length];
         for (int i = 0; i < query.length; i++) {
@@ -54,40 +60,29 @@ public class Programmers72412 {
 
     private int query(String query) {
         Applicant[] filteredApplicants;
-        int lastSpace = query.lastIndexOf(" ");
-        Integer score = Integer.valueOf(query.substring(lastSpace + 1));
-        String key = query.substring(0, lastSpace);
+        String queryEndExcluded = query.replaceAll(SPACE_AND, EMPTY);
+        String[] split = queryEndExcluded.split(SPACE);
+        String lang = split[0];
+        String job = split[1];
+        String level = split[2];
+        String food = split[3];
+        int score = Integer.parseInt(split[4]);
 
-        if (cacheMap.containsKey(key)) {
-            // cache hit
-            filteredApplicants = cacheMap.get(key);
+        filteredApplicants = Arrays.stream(applicantList)
+                .filter(applicant ->
+                        (lang.equals(DASH) || applicant.lang.equals(lang)) &&
+                        (job.equals(DASH) || applicant.job.equals(job)) &&
+                        (level.equals(DASH) || applicant.level.equals(level)) &&
+                        (food.equals(DASH) || applicant.food.equals(food)))
+                .toArray(Applicant[]::new);
 
-        } else {
-            // not hit
-            String queryEndExcluded = query.replaceAll(" and", "");
-            String[] split = queryEndExcluded.split(" ");
-            String lang = split[0];
-            String job = split[1];
-            String level = split[2];
-            String food = split[3];
-            score = Integer.valueOf(split[4]);
-
-            filteredApplicants = applicantList.stream()
-                    .filter(applicant -> (lang.equals("-") || applicant.lang.equals(lang)) &&
-                            (job.equals("-") || applicant.job.equals(job)) &&
-                            (level.equals("-") || applicant.level.equals(level)) &&
-                            (food.equals("-") || applicant.food.equals(food)))
-                    .toArray(Applicant[]::new);
-
-            cacheMap.put(key, filteredApplicants);
-        }
 
         // binary search
         // 범위 중에서 제일 작은 수 (인덱스) 구하기
         int start = 0; // inclusive
-        int end = filteredApplicants.length; // exclusive
+        int end = filteredApplicants.length - 1; // inclusive
 
-        // end - exclusive 로 간주하고 end 가 범위 내의 수로 진입한 다음
+        // end - inclusive 로 간주하고 end 가 범위 내의 수로 진입한 다음
         // 마지막 2개 남았을 때에도 mid(==start) < score 라면 start 를 1 증가시켜 end 가 됨으로써 나머지 딱 하나 남음. 그때 include 시킴.
         while (end > start) {
             int mid = (start + end) / 2;
@@ -99,8 +94,11 @@ public class Programmers72412 {
             }
         }
 
-
-        return filteredApplicants.length - start;
+        if (filteredApplicants[end].score >= score) {
+            return filteredApplicants.length - end;
+        } else {
+            return 0;
+        }
     }
 
     public static void main(String[] args) {
