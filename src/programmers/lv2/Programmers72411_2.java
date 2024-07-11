@@ -23,14 +23,8 @@ public class Programmers72411_2 {
             courseMenusResult.addAll(getCourseMenus(orderList, courseUnit));
         }
 
-        String[] result = new String[courseMenusResult.size()];
-        int resultIdx = 0;
-        for (String menu : courseMenusResult) {
-            result[resultIdx] = menu;
-            resultIdx++;
-        }
-        Arrays.sort(result);
-        return result;
+        return courseMenusResult.stream().sorted()
+                .toArray(String[]::new);
     }
 
     private List<String> getCourseMenus(List<String[]> orderList, int courseUnit) {
