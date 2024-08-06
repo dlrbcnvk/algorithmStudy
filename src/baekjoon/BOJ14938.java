@@ -16,7 +16,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 우선순위큐 기반의 너비우선탐색
  * relax() 필요
  *
- * 미해결
  */
 public class BOJ14938 {
     static class Graph {
@@ -81,9 +80,7 @@ public class BOJ14938 {
         Vertex startVertex = graph.vertexMap.get(start);
         startVertex.d = 0;
         PriorityQueue<Vertex> pq = new PriorityQueue<>(Comparator.comparingInt(vertex -> vertex.d));
-        graph.vertexMap.keySet().forEach(key -> {
-            pq.add(graph.vertexMap.get(key));
-        });
+        pq.add(startVertex);
         while (!pq.isEmpty()) {
             Vertex fromVertex = pq.poll();
 
